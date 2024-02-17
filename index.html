@@ -33,7 +33,7 @@
             <p></p>
             <ol id="nav-bar" style="font-size: 15px;">
                 <li type="button"><a href="index.html" >Биномиальное распределение</a></li>
-                <li type="button"><a href="1.2_geom_new.html">Геометрическое распределение</a></li>
+                <li type="button"><a href="geom.html">Геометрическое распределение</a></li>
                 <li type="button"><a href="1.3_hyper_new.html">Гипергеометрическое распределение</a></li>
                 <li type="button"><a href="1.4_poisson_new.html">Распределение Пуассона</a></li>
             </ol>
@@ -158,8 +158,7 @@
 
     
     <footer>
-        <h2>CPDIT-TSU
-            <p>2024</p>
+        <h2>
         </h2>
     </footer>
 
@@ -235,70 +234,47 @@
             tableBody.innerHTML = '';
             const decimalPlaces = getDecimalPlaces();
 
-            /*if (data.length < 40) {
+            
+    
+            const firstHalf = data.slice(0, Math.ceil(data.length / 2)); 
+            const secondHalf = data.slice(Math.ceil(data.length / 2));
 
-                data.forEach(entry => {
-                    const row = document.createElement('tr');
-                    const xCell = document.createElement('td');
-                    const probabilityCell = document.createElement('td');
-                    const xCell1 = document.createElement('td');
+            firstHalf.forEach((entry, index) => {
+                const row = document.createElement('tr');
+                const xCell = document.createElement('td');
+                const probabilityCell = document.createElement('td');
+                
+                xCell.textContent = entry.x;
+                probabilityCell.textContent = scientificNotation(entry.y, decimalPlaces); 
+                
+                row.appendChild(xCell);
+                row.appendChild(probabilityCell);
 
-                    
-                    xCell.textContent = entry.x;
-                    probabilityCell.textContent = entry.y.toExponential(decimalPlaces);
+                const emptyXCell = document.createElement('td');
+                const emptyProbabilityCell = document.createElement('td');
+                row.appendChild(emptyXCell);
+                row.appendChild(emptyProbabilityCell);
 
-                    row.appendChild(xCell);
-                    row.appendChild(probabilityCell);
+                tableBody.appendChild(row);
+            });
 
-                    tableBody.appendChild(row);
-                });
-            }*/
-            if (data.length > 0) {
-                // Разделение массива данных на две части
-                const firstHalf = data.slice(0, Math.ceil(data.length / 2)); // Добавляем Math.ceil для округления вверх
-                const secondHalf = data.slice(Math.ceil(data.length / 2));
+            secondHalf.forEach((entry, index) => {
+                const row = tableBody.children[index]; 
+                if (!row) return; 
+                const xCell1 = row.children[2]; 
+                const probabilityCell1 = row.children[3]; 
 
-                // Заполнение таблицы первой половиной данных
-                firstHalf.forEach((entry, index) => {
-                    const row = document.createElement('tr');
-                    const xCell = document.createElement('td');
-                    const probabilityCell = document.createElement('td');
-
-                    xCell.textContent = entry.x;
-                    probabilityCell.textContent = scientificNotation(entry.y, decimalPlaces); // Используем функцию scientificNotation() для преобразования числа
-
-
-                    row.appendChild(xCell);
-                    row.appendChild(probabilityCell);
-
-                    // Добавление пустых ячеек для второй половины данных
-                    const emptyXCell = document.createElement('td');
-                    const emptyProbabilityCell = document.createElement('td');
-                    row.appendChild(emptyXCell);
-                    row.appendChild(emptyProbabilityCell);
-
-                    tableBody.appendChild(row);
-                });
-
-                // Заполнение таблицы второй половиной данных
-                secondHalf.forEach((entry, index) => {
-                    const row = tableBody.children[index]; // Получение строки, созданной для первой половины данных
-                    if (!row) return; // Добавляем проверку на существование строки
-                    const xCell1 = row.children[2]; // Вторая ячейка в строке для второй половины данных
-                    const probabilityCell1 = row.children[3]; // Третья ячейка в строке для второй половины данных
-
-                    xCell1.textContent = entry.x;
-                    probabilityCell1.textContent = scientificNotation(entry.y, decimalPlaces);
-                });
-            }
+                xCell1.textContent = entry.x;
+                probabilityCell1.textContent = scientificNotation(entry.y, decimalPlaces);
+            });
 
             highlightProbability();
 
         }
         function scientificNotation(number, decimalPlaces) {
-            const exponent = Math.floor(Math.log10(Math.abs(number))); // Определяем экспоненту
-            const coefficient = (number / Math.pow(10, exponent)).toFixed(decimalPlaces); // Определяем коэффициент
-            return `${coefficient}*10^(${exponent})`; // Возвращаем число в научной нотации
+            const exponent = Math.floor(Math.log10(Math.abs(number))); 
+            const coefficient = (number / Math.pow(10, exponent)).toFixed(decimalPlaces); 
+            return `${coefficient}*10^(${exponent})`; 
         }
         
 
