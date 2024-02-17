@@ -129,8 +129,7 @@
         </section>
     </div>
     <footer>
-        <h2>CPDIT-TSU
-            <p>2024</p>
+        <h2>
         </h2>
     </footer>
 
@@ -200,7 +199,7 @@
 
             
                 
-            const firstHalf = data.slice(0, Math.ceil(data.length / 2)); // Добавляем Math.ceil для округления вверх
+            const firstHalf = data.slice(0, Math.ceil(data.length / 2)); 
             const secondHalf = data.slice(Math.ceil(data.length / 2));
              
             firstHalf.forEach((entry, index) => {
@@ -214,7 +213,7 @@
                     row.appendChild(xCell);
                     row.appendChild(probabilityCell);
 
-                    // Добавление пустых ячеек для второй половины данных
+                    
                     const emptyXCell = document.createElement('td');
                     const emptyProbabilityCell = document.createElement('td');
                     row.appendChild(emptyXCell);
@@ -225,10 +224,10 @@
 
                 
             secondHalf.forEach((entry, index) => {
-                const row = tableBody.children[index]; // Получение строки, созданной для первой половины данных
-                if (!row) return; // Добавляем проверку на существование строки
-                const xCell1 = row.children[2]; // Вторая ячейка в строке для второй половины данных
-                const probabilityCell1 = row.children[3]; // Третья ячейка в строке для второй половины данных
+                const row = tableBody.children[index]; 
+                if (!row) return; 
+                const xCell1 = row.children[2]; 
+                const probabilityCell1 = row.children[3]; 
 
                 xCell1.textContent = entry.x;
                 probabilityCell1.textContent = entry.y.toExponential(decimalPlaces);
@@ -238,26 +237,7 @@
 
         } 
 
-        /*function updateDistributionTable(data) {
-            const tableBody = document.getElementById('distribution-table-body');
-            tableBody.innerHTML = '';
-            const decimalPlaces = getDecimalPlaces();
-
-            data.forEach(entry => {
-                const row = document.createElement('tr');
-                const xCell = document.createElement('td');
-                const probabilityCell = document.createElement('td');
-
-                xCell.textContent = entry.x;
-                probabilityCell.textContent = entry.y.toExponential(decimalPlaces);
-
-                row.appendChild(xCell);
-                row.appendChild(probabilityCell);
-
-                tableBody.appendChild(row);
-            });
-        }*/
-        
+       
         document.getElementById('decimal-places').value = 3;
 
 
@@ -277,7 +257,6 @@
             const decimalPlaces = getDecimalPlaces();
             const stepSize = 1 / Math.pow(10, 2);
 
-            let increasedScale = false; // Флаг для отслеживания увеличения масштаба
 
             window.myGeometricChart = new Chart(ctx, {
                 type: chartType,
@@ -353,27 +332,27 @@
             const xInput = document.getElementById('k');
             const x = parseInt(xInput.value);
 
-            // В зависимости от введенного значения x подсветим соответствующие ячейки в таблице
+   
             const tableBody = document.getElementById('distribution-table-body');
             const rows = tableBody.querySelectorAll('tr');
 
             rows.forEach(row => {
                 const cells = row.querySelectorAll('td');
                 const rowX = parseInt(cells[0].textContent);
-                const probabilityCell = cells[1]; // Ячейка с вероятностью
+                const probabilityCell = cells[1]; 
 
                 if (rowX === x) {
-                    cells[0].style.backgroundColor = '#EA526F'; // Подсветка ячейки с x
-                    probabilityCell.style.backgroundColor = '#EA526F'; // Подсветка ячейки с вероятностью
+                    cells[0].style.backgroundColor = '#EA526F'; 
+                    probabilityCell.style.backgroundColor = '#EA526F'; 
                 } else if (cells.length > 2 && parseInt(cells[2].textContent) === x) {
-                    cells[2].style.backgroundColor = '#EA526F'; // Подсветка ячейки с x во второй половине данных
-                    cells[3].style.backgroundColor = '#EA526F'; // Подсветка ячейки с вероятностью во второй половине данных
+                    cells[2].style.backgroundColor = '#EA526F'; 
+                    cells[3].style.backgroundColor = '#EA526F';
                 } else {
-                    cells[0].style.backgroundColor = ''; // Сброс цвета фона для ячейки с x
-                    probabilityCell.style.backgroundColor = ''; // Сброс цвета фона для ячейки с вероятностью
+                    cells[0].style.backgroundColor = ''; 
+                    probabilityCell.style.backgroundColor = ''; 
                     if (cells.length > 2) {
-                        cells[2].style.backgroundColor = ''; // Сброс цвета фона для ячейки с x во второй половине данных
-                        cells[3].style.backgroundColor = ''; // Сброс цвета фона для ячейки с вероятностью во второй половине данных
+                        cells[2].style.backgroundColor = ''; 
+                        cells[3].style.backgroundColor = '';
                     }
                 }
             });
