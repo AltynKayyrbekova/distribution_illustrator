@@ -208,7 +208,7 @@
                 const probabilityCell = document.createElement('td');
 
                     xCell.textContent = entry.x;
-                    probabilityCell.textContent = entry.y.toExponential(decimalPlaces);
+                    probabilityCell.textContent = scientificNotation(entry.y, decimalPlaces);
 
                     row.appendChild(xCell);
                     row.appendChild(probabilityCell);
@@ -230,13 +230,18 @@
                 const probabilityCell1 = row.children[3]; 
 
                 xCell1.textContent = entry.x;
-                probabilityCell1.textContent = entry.y.toExponential(decimalPlaces);
+                probabilityCell1.textContent = scientificNotation(entry.y, decimalPlaces);
             });
             
             highlightProbability();
 
         } 
 
+        function scientificNotation(number, decimalPlaces) {
+            const exponent = Math.floor(Math.log10(Math.abs(number))); // Определяем экспоненту
+            const coefficient = (number / Math.pow(10, exponent)).toFixed(decimalPlaces); // Определяем коэффициент
+            return `${coefficient}*10^(${exponent})`; // Возвращаем число в научной нотации
+        }
        
         document.getElementById('decimal-places').value = 3;
 
