@@ -112,6 +112,7 @@ footer p {
 }
 
 #distribution-table-section {
+    padding-top: 20px;
     flex: 0 1 calc(60% - 20px);
     max-width: 200px;
     min-width: 50px;
